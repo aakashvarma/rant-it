@@ -1,8 +1,10 @@
 import numpy as np
+import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import RegexpTokenizer
+from nltk.tokenize import PunktSentenceTokenizer
 
 data = "Potholes have been causing a lot of inconvenience in Bangalore, there has already been a lot of accidents in the place bacause of these potholes. Please look into this matter."
 # print(word_tokenize(data))
@@ -27,6 +29,9 @@ for word in wordsFiltered:
     stemWords.append(ps.stem(word))
 
 # print (stemWords)
+
+tagged = nltk.pos_tag(wordsFiltered)
+print (tagged)
 
 
 
