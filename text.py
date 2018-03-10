@@ -4,7 +4,7 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import RegexpTokenizer
 
-data = "All work and no play makes jack a dull boy, make making all work and no play"
+data = "Potholes have been causing a lot of inconvenience in Bangalore, there has already been a lot of accidents in the place bacause of these potholes. Please look into this matter."
 # print(word_tokenize(data))
 
 tokenizer = RegexpTokenizer(r'\w+')
@@ -18,7 +18,7 @@ for w in words:
     if w not in stopWords:
         wordsFiltered.append(w)
 
-# print (wordsFiltered)
+print (wordsFiltered)
 
 stemWords = []
 ps = PorterStemmer()
@@ -26,7 +26,7 @@ ps = PorterStemmer()
 for word in wordsFiltered:
     stemWords.append(ps.stem(word))
 
-print (stemWords)
+# print (stemWords)
 
 
 
