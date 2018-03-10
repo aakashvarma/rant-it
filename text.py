@@ -6,7 +6,7 @@ from nltk.stem import PorterStemmer
 from nltk.tokenize import RegexpTokenizer
 from nltk.tokenize import PunktSentenceTokenizer
 
-data = "Potholes have been causing a lot of inconvenience in Bangalore, there has already been a lot of accidents in the place bacause of these potholes, please look into this matter."
+data = "guess who thinks keeping super bright hording screens in VIT Vellore at night is a good idea? new hording screens in VIT Vellore would be nice if they are less bright. riviera 2018 held at VIT Vellore was lit. hording screens at VIT Vellore looks good in the afternoon"
 # print(word_tokenize(data))
 
 tokenizer = RegexpTokenizer(r'\w+')
@@ -19,11 +19,11 @@ wordsFiltered = []
 for w in words:
     if w not in stopWords:
         wordsFiltered.append(w)
-print (wordsFiltered)
+# print (wordsFiltered)
 
 
 tagged = nltk.pos_tag(wordsFiltered)
-print (tagged)
+# print (tagged)
 
 #############################################################################
 
@@ -34,7 +34,7 @@ for sent in sentences:
     d = d + nltk.pos_tag(nltk.word_tokenize(sent))
  
 for word in d: 
-    if 'NNP' in word[1]: 
+    if 'NN' in word[1]: 
         print(word)
 
 #############################################################################
