@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import RegexpTokenizer
 from nltk.tokenize import PunktSentenceTokenizer
+from nltk.probability import FreqDist
 
 data = "guess who thinks keeping super bright hording screens in VIT Vellore at night is a good idea? new hording screens in VIT Vellore would be nice if they are less bright. riviera 2018 held at VIT Vellore was lit. hording screens at VIT Vellore looks good in the afternoon"
 # print(word_tokenize(data))
@@ -34,13 +35,12 @@ for sent in sentences:
     d = d + nltk.pos_tag(nltk.word_tokenize(sent))
  
 for word in d: 
-    if 'NN' in word[1]: 
+    if 'NNS' in word[1]: 
+        print(word)
+    if 'NNP' in word[1]: 
         print(word)
 
 #############################################################################
-
-
-
 
 
 
