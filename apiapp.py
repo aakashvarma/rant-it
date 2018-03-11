@@ -1,3 +1,4 @@
+from flask import Flask, jsonify
 import numpy as np
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
@@ -10,6 +11,8 @@ import nltk.classify.util
 from nltk.classify import NaiveBayesClassifier
 from nltk.corpus import names
 
+app = Flask(__name__)
+
 # Fetch Api
 
 import json
@@ -21,7 +24,7 @@ obj = json.load(reader(urlopen(url)))
 
 # Data assigning
 a = []
-b=[]
+b = []
 for i in range(0,len(obj)):
     data = obj[i]['Tweet']
 
@@ -110,17 +113,19 @@ for i in range(0,len(obj)):
 
     b.append(a)
 
-print (b)
+
+
+@app.route('/', methods=['GET'])
+def get_tasks():
+    return jsonify({'data': b})
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 
 
-    # def jsonret():
-    #     a = {'tweetid':tweetid, 'place':placename, 'issue':issue, 'sentpos':pos, 'sentneg':neg, 'coordinates':coordinates}
-    #     python2json = json.dumps(a)
-    #     return (python2json)
 
-    # b = jsonret()
-    # print (b)
+
 
 
 
