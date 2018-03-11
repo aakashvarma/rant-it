@@ -21,87 +21,91 @@ obj = json.load(reader(urlopen(url)))
 
 # Data assigning
 
-data = obj[0]['Tweet']
+for i in range(0,len(obj)):
+    data = obj[i]['Tweet']
 
 # Tokenizer 
 
-tokenizer = RegexpTokenizer(r'\w+')
+    tokenizer = RegexpTokenizer(r'\w+')
 
-stopWords = set(stopwords.words('english'))
-words = tokenizer.tokenize(data)
-wordsFiltered = []
- 
-for w in words:
-    if w not in stopWords:
-        wordsFiltered.append(w)
+    stopWords = set(stopwords.words('english'))
+    words = tokenizer.tokenize(data)
+    wordsFiltered = []
+    
+    for w in words:
+        if w not in stopWords:
+            wordsFiltered.append(w)
 
-tagged = nltk.pos_tag(wordsFiltered)
+    tagged = nltk.pos_tag(wordsFiltered)
 
-# Sentiment analysis
+    # Sentiment analysis
 
-# def sent():
-def word_feats(words_):
-    return dict([(wor, True) for wor in words_])
+    # def sent():
+    def word_feats(words_):
+        return dict([(wor, True) for wor in words_])
 
-positive_vocab = [ 'awesome', 'outstanding', 'fantastic', 'terrific', 'good', 'nice', 'great', ':)' ]
-negative_vocab = [ 'bad', 'terrible','useless', 'hate', ':(' ]
-neutral_vocab = [ 'movie','the','sound','was','is','actors','did','know','words','not' ]
+    positive_vocab = [ 'awesome', 'outstanding', 'fantastic', 'terrific', 'good', 'nice', 'great', ':)' ]
+    negative_vocab = [ 'bad', 'terrible','useless', 'hate', ':(' ]
+    neutral_vocab = [ 'movie','the','sound','was','is','actors','did','know','words','not' ]
 
-positive_features = [(word_feats(pos), 'pos') for pos in positive_vocab]
-negative_features = [(word_feats(neg), 'neg') for neg in negative_vocab]
-neutral_features = [(word_feats(neu), 'neu') for neu in neutral_vocab]
+    positive_features = [(word_feats(pos), 'pos') for pos in positive_vocab]
+    negative_features = [(word_feats(neg), 'neg') for neg in negative_vocab]
+    neutral_features = [(word_feats(neu), 'neu') for neu in neutral_vocab]
 
-train_set = negative_features + positive_features + neutral_features
+    train_set = negative_features + positive_features + neutral_features
 
-classifier = NaiveBayesClassifier.train(train_set) 
+    classifier = NaiveBayesClassifier.train(train_set) 
 
-neg = 0
-pos = 0
-sentence = obj[0]['Tweet']
-sentence = sentence.lower()
-words_ = sentence.split(' ')
-for wor in words_:
-    classResult = classifier.classify( word_feats(wor))
-    if classResult == 'neg':
-        neg = neg + 1
-    if classResult == 'pos':
-        pos = pos + 1
+    neg = 0
+    pos = 0
+    sentence = obj[i]['Tweet']
+    sentence = sentence.lower()
+    words_ = sentence.split(' ')
+    for wor in words_:
+        classResult = classifier.classify( word_feats(wor))
+        if classResult == 'neg':
+            neg = neg + 1
+        if classResult == 'pos':
+            pos = pos + 1
 
-pos = str(float(pos)/len(words_))
-neg = str(float(neg)/len(words_))
+    pos = str(float(pos)/len(words_))
+    neg = str(float(neg)/len(words_))
 
-# Noun extraction
+    # Noun extraction
 
-sentences = nltk.sent_tokenize(data)   
- 
-d = []
-for sent in sentences:
-    d = d + nltk.pos_tag(nltk.word_tokenize(sent))
- 
-for word in d: 
-    if 'NNS' in word[1]: 
-        issue = word
-    if 'NNP' in word[1]: 
-        place_nnp = word
+    sentences = nltk.sent_tokenize(data)   
+    
+    d = []
+    for sent in sentences:
+        d = d + nltk.pos_tag(nltk.word_tokenize(sent))
+    
+    for word in d: 
+        if 'NNS' in word[1]: 
+            issue = word
+        if 'NNS' not in word[1]:
+            issue = 'None'
+        if 'NNP' in word[1]: 
+            place_nnp = word
+        if 'NNP' not in word[1]:
+            issue = 'None'
 
-tweetid = obj[0]['TweetID']
-place = obj[0]['PlaceName']
+    tweetid = obj[i]['TweetID']
+    place = obj[i]['PlaceName']
 
-issue = 'djchfbsd'
-if place == 'None':
-    placename = plane_nnp
-else:
-    placename = place
+    if place == 'None':
+        placename = plane_nnp
+    else:
+        placename = place
 
-# JSON return
+    # JSON return
 
-def jsonret():
-    a = {'tweetid':tweetid, 'place':placename, 'issue':issue, 'sentpos':pos, 'sentneg':neg}
-    python2json = json.dumps(a)
-    return (python2json)
+    def jsonret():
+        a = {'tweetid':tweetid, 'place':placename, 'issue':issue, 'sentpos':pos, 'sentneg':neg}
+        python2json = json.dumps(a)
+        return (python2json)
 
-b = jsonret()
-print (b)
+    b = jsonret()
+    print (b)
 
 
 
