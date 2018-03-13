@@ -25,6 +25,8 @@ obj = json.load(reader(urlopen(url)))
 # Data assigning
 a = []
 b = []
+place_nnp = 'None'
+
 for i in range(0,len(obj)):
     data = obj[i]['Tweet']
 
@@ -75,6 +77,10 @@ for i in range(0,len(obj)):
     pos = str(float(pos)/len(words_))
     neg = str(float(neg)/len(words_))
 
+    # coordinates assigning
+
+    coordinates = obj[i]['coordinates']
+
     # Noun extraction
 
     sentences = nltk.sent_tokenize(data)   
@@ -86,24 +92,21 @@ for i in range(0,len(obj)):
     for word in d: 
         if 'NNS' in word[1]: 
             issue = word
-        if 'NNS' not in word[1]:
-            issue = 'null'
+        # if 'NNS' not in word[1]:
+        #     issue = 'null'
         if 'NNP' in word[1]: 
             place_nnp = word
-        if 'NNP' not in word[1]:
-            issue = 'null'
+        # if 'NNP' not in word[1]:
+        #     issue = 'null'
 
     tweetid = obj[i]['TweetID']
     place = obj[i]['PlaceName']
 
-    if place == 'None':
-        placename = plane_nnp
+    if place not in obj[i]:
+        
+        placename = place_nnp
     else:
         placename = place
-
-    # coordinates assigning
-
-    coordinates = obj[i]['coordinates']
 
     # JSON return
 
