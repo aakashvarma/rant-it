@@ -1,4 +1,4 @@
-#testing file ony. not for production
+#testing file onyl not for production
 
 
 from sklearn.feature_extraction.text import TfidfVectorizer
