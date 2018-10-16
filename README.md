@@ -1,6 +1,8 @@
 # Rant it
-
+Lets Rant
 This repository is the Natural Language Processing (NLP) part of the application.
+Promo Video : https://www.youtube.com/watch?v=zPZH-RLgGbE
+Website : https://letsrant.azurewebsites.net/
 
 ### Libraries used:
 Numpy, nltk, flask
