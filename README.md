@@ -1,4 +1,4 @@
-# Rant it
+## Rant it
 
 This repository is the Natural Language Processing (NLP) part of the application.
 
