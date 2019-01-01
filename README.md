@@ -1,5 +1,7 @@
 ## Rant it
 
+#### This app was made in Code2Create'18 hackathon.
+
 This repository is the Natural Language Processing (NLP) part of the application.
 
 ### Libraries used:
